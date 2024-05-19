@@ -62,7 +62,8 @@
                                             @endif
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $d['role'] }}</span>
+                                            <span
+                                                class="text-secondary text-xs font-weight-bold">{{ $d->role->name }}</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="{{ route('users.show', $d['id']) }}" class="btn btn-sm btn-info"><i
