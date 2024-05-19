@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,7 +61,7 @@ Route::get('/dashboard', function () {
     ]);
 })->name('dashboard.index');
 
-
+/*
 Route::get('/users', function () {
     $users = [
         [
@@ -243,3 +244,12 @@ Route::get('/users/{id}/edit', function ($id) {
         'roles' => $roles
     ]);
 })->name('users.edit');
+*/
+
+Route::controller(UserController::class)->prefix("users")->name("users.")->group(function () {
+    Route::get('/', "index")->name('index');
+    Route::get('/create', "create")->name('create');
+    Route::get('/{id}', "show")->name('show');
+    Route::get('/{id}/edit', "edit")->name('edit');
+    Route::post('/', "store")->name('store');
+});
