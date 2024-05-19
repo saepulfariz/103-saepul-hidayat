@@ -40,10 +40,10 @@ class UserController extends Controller
         $payload = $request->all();
 
         $request->validate([
-            // 'image'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'image'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'name'         => 'required|min:5',
             'username'   => 'required|unique:users,username',
-            'email'   => 'required|unique:users,email',
+            'email'   => 'required|unique:App\Models\User,email|email',
             'password'   => 'required|min:3',
             'role_id'   => 'required',
         ]);
@@ -55,7 +55,14 @@ class UserController extends Controller
         $user->role_id = $payload['role_id'];
         $user->email = $payload['email'];
         $user->npm = $payload['npm'];
-        // $user->image = $payload['image'];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . "-" . $image->hashName();
+            $image->move("assets/uploads/users/", $imageName);
+            $user->image = $imageName;
+        }
+
         $user->telephone = $payload['telephone'];
         $user->birthday = $payload['birthday'];
         $user->address = $payload['address'];
