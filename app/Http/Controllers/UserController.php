@@ -171,6 +171,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+
+        if (file_exists(public_path("assets/uploads/users/" . $user->image)) && $user->image != 'default.jpg') {
+            unlink("assets/uploads/users/" . $user->image);
+        }
+
+        User::destroy($id);
+        return redirect()->route('users.index');
     }
 }

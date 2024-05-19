@@ -253,4 +253,5 @@ Route::controller(UserController::class)->prefix("users")->name("users.")->group
     Route::get('/{id}/edit', "edit")->name('edit');
     Route::post('/', "store")->name('store');
     Route::put('/{id}', "update")->name('update');
+    Route::delete('/{id}', "destroy")->name('destroy');
 });

@@ -70,9 +70,13 @@
                                                     class="fas fa-eye"></i></a>
                                             <a href="{{ route('users.edit', $d['id']) }}" class="btn btn-sm btn-warning"><i
                                                     class="fas fa-edit"></i></a>
-                                            <a href="#"
-                                                onclick="alert('Gak boleh ada yang di hapus, apalagi hati ^_^')"
-                                                class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                            <form class="d-inline" action="{{ route('users.destroy', $d['id']) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty
