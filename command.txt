@@ -1,0 +1,17 @@
+php artisan make:migration roles
+// buat table migrate
+
+php artisan migrate
+php artisan migrate:refresh
+
+php artisan migrate:fresh --seed
+// migrate refresh sambil seed data
+
+php artisan make:seeder UserSeeder
+// buat seeder
+
+php artisan db:seed UserSeeder
+// panggil seeder
+
+php artisan make:controller UserController --resource
+
