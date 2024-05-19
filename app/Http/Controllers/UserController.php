@@ -39,14 +39,19 @@ class UserController extends Controller
     {
         $payload = $request->all();
 
-        $request->validate([
-            'image'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        $rules = [
             'name'         => 'required|min:5',
             'username'   => 'required|unique:users,username',
             'email'   => 'required|unique:App\Models\User,email|email',
             'password'   => 'required|min:3',
             'role_id'   => 'required',
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $rules['image'] = 'required|image|mimes:jpeg,jpg,png|max:2048';
+        }
+
+        $request->validate($rules);
 
         $user = new User();
         $user->name = $payload['name'];
@@ -84,7 +89,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = User::find($id);
+        $roles = Role::all();
+        $menu = "Edit";
+
+        return view('pages.users.edit', compact('data', 'roles', 'menu'));
     }
 
     /**
@@ -92,7 +101,66 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $payload = $request->all();
+        $user = User::find($id);
+
+        $rules = [
+            'name'         => 'required|min:5',
+            'role_id'   => 'required',
+        ];
+
+        if ($payload['password'] != null) {
+            $rules['password'] = 'required|min:3';
+            $user->password = Hash::make($payload['password']);
+        }
+
+        if ($payload['email'] != $user->email) {
+            $rules['email'] = 'required|unique:App\Models\User,email|email';
+            $email = $payload['email'];
+        } else {
+            $email = $user->email;
+        }
+
+        if ($payload['username'] != $user->username) {
+            $rules['username'] = 'required|unique:users,username';
+            $username = $payload['username'];
+        } else {
+            $username = $user->username;
+        }
+
+        if ($request->hasFile('image')) {
+            $rules['image'] = 'required|image|mimes:jpeg,jpg,png|max:2048';
+        }
+
+        $request->validate($rules);
+
+
+        $user->name = $payload['name'];
+        $user->username = $username;
+
+        $user->role_id = $payload['role_id'];
+        $user->email = $email;
+        $user->npm = $payload['npm'];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . "-" . $image->hashName();
+
+            if (file_exists(public_path("assets/uploads/users/" . $user->image)) && $user->image != 'default.jpg') {
+                unlink("assets/uploads/users/" . $user->image);
+            }
+
+            $image->move("assets/uploads/users/", $imageName);
+            $user->image = $imageName;
+        }
+
+        $user->telephone = $payload['telephone'];
+        $user->birthday = $payload['birthday'];
+        $user->address = $payload['address'];
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     /**

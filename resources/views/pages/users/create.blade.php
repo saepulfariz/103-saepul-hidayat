@@ -113,6 +113,12 @@
                                     <input type="file" class="form-control" name="image" id="image">
                                 </div>
 
+                                @error('image')
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+
                                 <div class="mb-2">
                                     <label for="address">Address</label>
                                     <textarea name="address" class="form-control" id="address" cols="30" rows="3"></textarea>
