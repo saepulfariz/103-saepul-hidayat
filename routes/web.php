@@ -1,65 +1,69 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::get('/', function () {
     return view('pages.auth.login');
 });
 
-Route::get('/login', function () {
-    return view('pages.auth.login');
-})->name('auth.login');
+// Route::get('/login', function () {
+//     return view('pages.auth.login');
+// })->name('auth.login');
 
-Route::get('/logout', function () {
-    // return redirect()->route('auth.login');
-    return redirect()->to('/login');
-})->name('auth.logout');
+// Route::get('/logout', function () {
+//     // return redirect()->route('auth.login');
+//     return redirect()->to('/login');
+// })->name('auth.logout');
 
 
-Route::get('/dashboard', function () {
-    $resume = [
-        [
-            'title' => "TODAY'S MONEY",
-            'number' => "$53,000",
-            'percentage' => "+55%",
-            'increst' => true,
-            'since' => "since yesterday",
-            'icon' => "ni ni-money-coins",
-            'icon-bg' => "bg-gradient-primary shadow-primary",
-        ],
-        [
-            'title' => "TODAY'S USERS",
-            'number' => "2,300",
-            'percentage' => "+3%",
-            'increst' => true,
-            'since' => "since last week",
-            'icon' => "ni ni-world",
-            'icon-bg' => "bg-gradient-danger shadow-danger",
-        ],
-        [
-            'title' => "NEW CLIENTS",
-            'number' => "+3,462",
-            'percentage' => "-2%",
-            'increst' => false,
-            'since' => "since last quarter",
-            'icon' => "ni ni-paper-diploma",
-            'icon-bg' => "bg-gradient-success shadow-success",
-        ],
-        [
-            'title' => "SALES",
-            'number' => "$103,430",
-            'percentage' => "+5%",
-            'increst' => true,
-            'since' => "than last month",
-            'icon' => "ni ni-cart",
-            'icon-bg' => "bg-gradient-warning shadow-warnin",
-        ],
-    ];
-    return view('pages.dashboard.index', [
-        'resume' => $resume
-    ]);
-})->name('dashboard.index');
+// Route::get('/dashboard', function () {
+//     $resume = [
+//         [
+//             'title' => "TODAY'S MONEY",
+//             'number' => "$53,000",
+//             'percentage' => "+55%",
+//             'increst' => true,
+//             'since' => "since yesterday",
+//             'icon' => "ni ni-money-coins",
+//             'icon-bg' => "bg-gradient-primary shadow-primary",
+//         ],
+//         [
+//             'title' => "TODAY'S USERS",
+//             'number' => "2,300",
+//             'percentage' => "+3%",
+//             'increst' => true,
+//             'since' => "since last week",
+//             'icon' => "ni ni-world",
+//             'icon-bg' => "bg-gradient-danger shadow-danger",
+//         ],
+//         [
+//             'title' => "NEW CLIENTS",
+//             'number' => "+3,462",
+//             'percentage' => "-2%",
+//             'increst' => false,
+//             'since' => "since last quarter",
+//             'icon' => "ni ni-paper-diploma",
+//             'icon-bg' => "bg-gradient-success shadow-success",
+//         ],
+//         [
+//             'title' => "SALES",
+//             'number' => "$103,430",
+//             'percentage' => "+5%",
+//             'increst' => true,
+//             'since' => "than last month",
+//             'icon' => "ni ni-cart",
+//             'icon-bg' => "bg-gradient-warning shadow-warnin",
+//         ],
+//     ];
+//     return view('pages.dashboard.index', [
+//         'resume' => $resume
+//     ]);
+// })->name('dashboard.index');
 
 /*
 Route::get('/users', function () {
@@ -246,8 +250,86 @@ Route::get('/users/{id}/edit', function ($id) {
 })->name('users.edit');
 */
 
-Route::controller(UserController::class)->prefix("users")->name("users.")->group(function () {
-    Route::get('/', "index")->name('index');
+// session
+Route::get('/setSession', function () {
+    session([
+        'nama' => "Andre",
+        'umur' => 19,
+        'asalkota' => "bandung",
+    ]);
+    return "Session telah Ditambahkan";
+});
+
+Route::get('/getSession', function () {
+    return [
+        'nama' => session()->get('nama'),
+        'umur' => session()->get('umur'),
+        'asalkota' => session()->get('asalkota'),
+    ];
+    return session()->all();
+});
+
+Route::get('/deleteSession', function () {
+    session()->forget('nama');
+    session()->flush();
+    return "Session Sudah Dihapus";
+});
+
+Route::controller(AuthController::class)->prefix("auth")->name('auth.')->group(function () {
+    Route::get("/login", "index")->name("login");
+    Route::post("/login", "login")->name("process");
+    Route::get("/logout", "logout")->name("logout");
+});
+
+Route::get('/dashboard', function () {
+    $resume = [
+        [
+            'title' => "TODAY'S MONEY",
+            'number' => "$53,000",
+            'percentage' => "+55%",
+            'increst' => true,
+            'since' => "since yesterday",
+            'icon' => "ni ni-money-coins",
+            'icon-bg' => "bg-gradient-primary shadow-primary",
+        ],
+        [
+            'title' => "TODAY'S USERS",
+            'number' => "2,300",
+            'percentage' => "+3%",
+            'increst' => true,
+            'since' => "since last week",
+            'icon' => "ni ni-world",
+            'icon-bg' => "bg-gradient-danger shadow-danger",
+        ],
+        [
+            'title' => "NEW CLIENTS",
+            'number' => "+3,462",
+            'percentage' => "-2%",
+            'increst' => false,
+            'since' => "since last quarter",
+            'icon' => "ni ni-paper-diploma",
+            'icon-bg' => "bg-gradient-success shadow-success",
+        ],
+        [
+            'title' => "SALES",
+            'number' => "$103,430",
+            'percentage' => "+5%",
+            'increst' => true,
+            'since' => "than last month",
+            'icon' => "ni ni-cart",
+            'icon-bg' => "bg-gradient-warning shadow-warnin",
+        ],
+    ];
+    return view('pages.dashboard.index', [
+        'resume' => $resume
+    ]);
+})->middleware(Authenticate::class)->name('dashboard.index');
+
+Route::controller(UserController::class)->middleware(["authenticate:admin"])->prefix("users")->name("users.")->group(function () {
+    // ->middleware(Authenticate::class)
+    // ->middleware([Authenticate::class]); // beberapa middleware
+    // ->middleware(["authenticate:admin"]) // alias dan kirim argumenet
+    Route::get('/', "index")->name('index')->middleware(Authenticate::class);
     Route::get('/create', "create")->name('create');
     Route::get('/{id}', "show")->name('show');
     Route::get('/{id}/edit', "edit")->name('edit');

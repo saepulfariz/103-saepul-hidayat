@@ -15,23 +15,37 @@
                                     <p class="mb-0">Enter your email and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    <form role="form">
+                                    <form action="{{ route('auth.process') }}" method="post" role="form">
+                                        @csrf
+                                        @if (session()->get('error'))
+                                            <div class="alert text-white alert-danger alert-dismissible fade show"
+                                                role="alert">
+                                                <span class="alert-text">
+                                                    {{ session()->get('error') }}
+                                                </span>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        @endif
                                         <div class="mb-3">
-                                            <input type="email" class="form-control form-control-lg" placeholder="Email"
-                                                aria-label="Email">
+                                            <input type="text" class="form-control form-control-lg" name="username"
+                                                id="username" placeholder="Username Or Email" aria-label="Email">
                                         </div>
                                         <div class="mb-3">
-                                            <input type="email" class="form-control form-control-lg"
-                                                placeholder="Password" aria-label="Password">
+                                            <input type="password" class="form-control form-control-lg" name="password"
+                                                id="password" placeholder="Password" aria-label="Password">
                                         </div>
-                                        <div class="form-check form-switch">
+                                        {{-- <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" id="rememberMe">
                                             <label class="form-check-label" for="rememberMe">Remember me</label>
-                                        </div>
+                                        </div> --}}
                                         <div class="text-center">
-                                            <a href="/dashboard" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign
-                                                in</a>
-                                            {{-- <button type="button" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button> --}}
+                                            {{-- <a href="/dashboard" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign
+                                                in</a> --}}
+                                            <button type="submit"
+                                                class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
                                         </div>
                                     </form>
                                 </div>

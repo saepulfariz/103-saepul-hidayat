@@ -18,15 +18,18 @@
                 <span class="nav-link-text ms-1">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}"
-                href="{{ route('users.index') }}">
-                <div class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-users text-warning text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Users</span>
-            </a>
-        </li>
+        @if (session()->get('role') == 'admin')
+            <li class="nav-item">
+                <a class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}"
+                    href="{{ route('users.index') }}">
+                    <div
+                        class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-users text-warning text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Users</span>
+                </a>
+            </li>
+        @endif
         <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account</h6>
         </li>
@@ -39,7 +42,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="/logout">
+            <a class="nav-link " href="{{ route('auth.logout') }}">
                 <div class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="fas fa-sign-out-alt text-info text-sm opacity-10"></i>
                 </div>
