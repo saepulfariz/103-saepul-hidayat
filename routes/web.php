@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MemberController;
 
 Route::get('/', function () {
@@ -341,3 +342,4 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
 
 Route::resource('divisions', DivisionController::class)->middleware(["authenticate:admin"]);
 Route::resource('members', MemberController::class)->middleware(["authenticate:admin"]);
+Route::resource('meetings', MeetingController::class)->middleware(["authenticate"]);

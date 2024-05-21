@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('telephone', 128)->nullable();
             $table->text('address')->nullable();
             $table->date('birthday')->nullable();
-            $table->integer('coordinator')->nullable()->default(0);
+            // $table->integer('coordinator')->nullable()->default(0);
             $table->integer('is_active')->default(1);
             // $table->rememberToken();
             $table->timestamps();
