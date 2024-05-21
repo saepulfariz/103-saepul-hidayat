@@ -23,7 +23,9 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        //
+        $menu = "Create";
+
+        return view('pages.divisions.create', compact('menu'));
     }
 
     /**
@@ -31,7 +33,17 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name'         => 'required'
+        ];
+
+        $request->validate($rules);
+
+        Division::create([
+            'name'         => $request->name,
+        ]);
+
+        return redirect()->route('divisions.index');
     }
 
     /**

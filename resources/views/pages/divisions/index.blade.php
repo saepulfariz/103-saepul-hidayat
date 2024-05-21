@@ -37,7 +37,9 @@
                                 @endphp
                                 @forelse ($divisions as $d)
                                     <tr>
-                                        <td>{{ $a++ }}</td>
+                                        <td><span
+                                                class="text-secondary text-xs font-weight-bold text-center px-3 py-1">{{ $a++ }}</span>
+                                        </td>
                                         <td>
                                             <span class="text-secondary text-xs font-weight-bold">{{ $d['name'] }}</span>
                                         </td>
