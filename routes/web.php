@@ -342,4 +342,4 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
 
 Route::resource('divisions', DivisionController::class)->middleware(["authenticate:admin"]);
 Route::resource('members', MemberController::class)->middleware(["authenticate:admin"]);
-Route::resource('meetings', MeetingController::class)->middleware(["authenticate"]);
+Route::resource('meetings', MeetingController::class)->middleware(["authenticate:admin|sekretaris"]);

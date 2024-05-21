@@ -13,16 +13,20 @@ class Authenticate
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role = null): Response
+    public function handle(Request $request, Closure $next, string $roles = null): Response
     {
         if (session()->get('isLogged') == null && session()->get('userId') == null) {
             return redirect()->route('auth.login')->with('error', 'Perlu Login Terlebih Dahulu!!');
         }
 
-        if ($role != null) {
-            if (session()->get('role') != $role) {
-                return redirect()->route('auth.login')->with('error', 'Anda tidak Memiliki Akses!!');
+        if ($roles != null) {
+            $roles = explode("|", $roles); // convert $roles to array
+            foreach ($roles as $role) {
+                if (session()->get('role') == $role) {
+                    return $next($request);
+                }
             }
+            return redirect()->route('auth.login')->with('error', 'Anda tidak Memiliki Akses!!');
         }
 
         return $next($request);
