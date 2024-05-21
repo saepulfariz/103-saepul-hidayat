@@ -1,6 +1,6 @@
 @extends('partials.layouts.app')
 
-@section('title', 'Meetings - SIMASI')
+@section('title', 'Attendances - SIMASI')
 @section('menu', $menu)
 
 @section('content')
@@ -9,7 +9,8 @@
             <div class="row mt-2">
                 <div class="col-sm-6"></div>
                 <div class="col-sm-6 text-end">
-                    <a href="{{ route('meetings.create') }}" class="btn btn-success me-2"><i class="fas fa-plus"></i>
+                    <a href="{{ route('attendances.create', $meeting['id']) }}" class="btn btn-success me-2"><i
+                            class="fas fa-plus"></i>
                         INPUT</a>
                 </div>
             </div>
@@ -25,17 +26,15 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Title</th>
+                                        Meeting</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Date</th>
+                                        Member</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Start Time</th>
+                                        Presensi</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        End Time</th>
+                                        Datetime</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Location</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Recapitulation</th>
+                                        Note</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Action</th>
@@ -51,33 +50,28 @@
                                                 class="text-secondary text-xs font-weight-bold text-center px-3 py-1">{{ $a++ }}</span>
                                         </td>
                                         <td>
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $d['title'] }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $d['date'] }}</span>
+                                            <span
+                                                class="text-secondary text-xs font-weight-bold">{{ $d->meeting->title }}</span>
                                         </td>
                                         <td>
                                             <span
-                                                class="text-secondary text-xs font-weight-bold">{{ $d['start_time'] }}</span>
+                                                class="text-secondary text-xs font-weight-bold">{{ $d->member->user->name }}</span>
                                         </td>
                                         <td>
                                             <span
-                                                class="text-secondary text-xs font-weight-bold">{{ $d['end_time'] }}</span>
+                                                class="text-secondary text-xs font-weight-bold">{{ $d['presensi'] }}</span>
                                         </td>
                                         <td>
                                             <span
-                                                class="text-secondary text-xs font-weight-bold">{{ $d['location'] }}</span>
+                                                class="text-secondary text-xs font-weight-bold">{{ $d['datetime'] }}</span>
                                         </td>
                                         <td>
-                                            <span
-                                                class="text-secondary text-xs font-weight-bold">{{ $d['recapitulation'] }}</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $d['note'] }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="{{ route('attendances.index', $d['id']) }}"
-                                                class="btn btn-sm btn-info"><i class="fas fa-calendar-check"></i></i></a>
-                                            <a href="{{ route('meetings.edit', $d['id']) }}"
+                                            <a href="{{ route('attendances.edit', $d['id']) }}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{ route('meetings.destroy', $d['id']) }}"
+                                            <form class="d-inline" action="{{ route('attendances.destroy', $d['id']) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')
