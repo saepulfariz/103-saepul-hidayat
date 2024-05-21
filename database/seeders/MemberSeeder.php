@@ -22,7 +22,7 @@ class MemberSeeder extends Seeder
             [
                 'divisi_id' => 2,
                 'user_id' => 2,
-                'coordinator' => 1,
+                'coordinator' => 0,
             ],
             [
                 'divisi_id' => 3,

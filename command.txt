@@ -15,5 +15,7 @@ php artisan db:seed UserSeeder
 
 php artisan make:controller UserController --resource
 
+php artisan make:model member
+
 php artisan make:middleware Authenticate
 

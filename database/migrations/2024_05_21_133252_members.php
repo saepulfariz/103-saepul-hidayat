@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('divisi_id')->nullable()->constrained('divisions')->onUpdate('SET NULL')->onDelete('CASCADE');
             $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('SET NULL')->onDelete('CASCADE');
             $table->integer('coordinator')->nullable()->default(1);
+            $table->timestamps();
         });
     }
 
