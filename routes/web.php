@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DivisionController;
 
 
 
@@ -337,3 +338,6 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
     Route::put('/{id}', "update")->name('update');
     Route::delete('/{id}', "destroy")->name('destroy');
 });
+
+
+Route::resource('divisions', DivisionController::class)->middleware(["authenticate:admin"]);
