@@ -51,7 +51,7 @@ class DivisionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return redirect()->route('divisions.index');
     }
 
     /**
@@ -59,7 +59,10 @@ class DivisionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Division::findOrFail($id);
+        $menu = "Edit";
+
+        return view('pages.divisions.edit', compact('data', 'menu'));
     }
 
     /**
@@ -67,7 +70,19 @@ class DivisionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = Division::findOrFail($id);
+
+        $rules = [
+            'name'         => 'required'
+        ];
+
+        $request->validate($rules);
+
+        $data->update([
+            'name'         => $request->name,
+        ]);
+
+        return redirect()->route('divisions.index');
     }
 
     /**
