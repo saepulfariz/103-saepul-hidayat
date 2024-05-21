@@ -12,10 +12,10 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        $divisions = Division::all();
+        $data = Division::all();
         $menu = "List";
 
-        return view('pages.divisions.index', compact('divisions', 'menu'));
+        return view('pages.divisions.index', compact('data', 'menu'));
     }
 
     /**
@@ -90,6 +90,10 @@ class DivisionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Division::findOrFail($id);
+
+        $data->delete();
+
+        return redirect()->route('divisions.index');
     }
 }

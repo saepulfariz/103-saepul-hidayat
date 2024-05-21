@@ -35,7 +35,7 @@
                                 @php
                                     $a = 1;
                                 @endphp
-                                @forelse ($divisions as $d)
+                                @forelse ($data as $d)
                                     <tr>
                                         <td><span
                                                 class="text-secondary text-xs font-weight-bold text-center px-3 py-1">{{ $a++ }}</span>
