@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MemberController;
@@ -363,3 +364,4 @@ Route::controller(KasController::class)->middleware(["authenticate:admin|bendaha
     // Route::put('/{id}', "update")->name('update');
     // Route::delete('/{id}', "destroy")->name('destroy');
 });
+Route::resource('expenses', ExpenseController::class)->middleware(["authenticate:admin|bendahara"]);
