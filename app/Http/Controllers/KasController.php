@@ -54,15 +54,15 @@ class KasController extends Controller
             'datetime'         => date('Y-m-d H:i:s'),
         ]);
 
-        $trasaction_last =  Transaction::orderBy("id", "DESC")->first();
+        $transaction_last =  Transaction::orderBy("id", "DESC")->first();
         $TransactionHistory =  TransactionHistory::orderBy("id", "DESC")->first();
         $balance_last = ($TransactionHistory) ? $TransactionHistory['balance'] : 0;
 
         // insert ke history
         TransactionHistory::create([
-            'transaction_id'         => $trasaction_last['id'],
-            'balance'         => $balance_last + $trasaction_last['nominal'],
-            'debit'         => $trasaction_last['nominal'],
+            'transaction_id'         => $transaction_last['id'],
+            'balance'         => $balance_last + $transaction_last['nominal'],
+            'debit'         => $transaction_last['nominal'],
             'credit'         => 0,
             'datetime'         => date('Y-m-d H:i:s'),
             'user_id'         => session()->get('userId'),
