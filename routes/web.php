@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\KasController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MemberController;
 
@@ -351,4 +352,14 @@ Route::controller(AttendanceController::class)->prefix('meetings/attendances')->
     Route::post('/{id}', "store")->name('store');
     Route::put('/{id}', "update")->name('update');
     Route::delete('/{id}', "destroy")->name('destroy');
+});
+
+Route::controller(KasController::class)->middleware(["authenticate:admin|bendahara"])->prefix('kas')->name('kas.')->group(function () {
+    Route::get('/', "index")->name('index');
+    Route::get('/{id}/create', "create")->name('create');
+    Route::get('/{id}', "show")->name('show');
+    Route::post('/{id}', "store")->name('store');
+    // Route::get('/{id}/edit', "edit")->name('edit');
+    // Route::put('/{id}', "update")->name('update');
+    // Route::delete('/{id}', "destroy")->name('destroy');
 });

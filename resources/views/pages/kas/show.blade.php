@@ -1,15 +1,17 @@
 @extends('partials.layouts.app')
 
-@section('title', 'Members - SIMASI')
+@section('title', 'Kas - SIMASI')
 @section('menu', $menu)
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="row mt-2">
-                <div class="col-sm-6"></div>
+                <div class="col-sm-6 col-12">
+                    <h3 class="text-white">{{ $member->user->name }} | {{ $member->user->npm }}</h3>
+                </div>
                 <div class="col-sm-6 text-end">
-                    <a href="{{ route('members.create') }}" class="btn btn-success me-2"><i class="fas fa-plus"></i>
+                    <a href="{{ route('kas.create', $member['id']) }}" class="btn btn-success me-2"><i class="fas fa-plus"></i>
                         INPUT</a>
                 </div>
             </div>
@@ -17,7 +19,7 @@
                 {{-- <div class="card-header pb-0">
                     <h6>Authors table</h6>
                 </div> --}}
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-0 pt-3 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -25,13 +27,13 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        NPM</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Division</th>
+                                        Nominal</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Coordinator</th>
+                                        Date</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Note</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Action</th>
@@ -47,37 +49,34 @@
                                                 class="text-secondary text-xs font-weight-bold text-center px-3 py-1">{{ $a++ }}</span>
                                         </td>
                                         <td>
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $d->user->npm }}</span>
+                                            <span
+                                                class="text-secondary text-xs font-weight-bold">{{ $d->member->user->name }}</span>
                                         </td>
                                         <td>
                                             <span
-                                                class="text-secondary text-xs font-weight-bold">{{ $d->user->name }}</span>
+                                                class="text-secondary text-xs font-weight-bold">{{ number_format($d->nominal, 0, ',', '.') }}</span>
                                         </td>
                                         <td>
-                                            <span
-                                                class="text-secondary text-xs font-weight-bold">{{ $d->divisi->name }}</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $d->datetime }}</span>
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            @if ($d['coordinator'] == true)
-                                                <span class="badge badge-sm bg-gradient-success">Coordinator</span>
-                                            @else
-                                                <span class="badge badge-sm bg-gradient-info">Participant</span>
-                                            @endif
+                                        <td>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $d->note }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="{{ route('members.edit', $d['id']) }}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{ route('members.destroy', $d['id']) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash"></i></button>
-                                            </form>
+                                            {{-- <td class="align-middle text-center">
+                                                <a href="{{ route('kas.edit', $d['id']) }}"
+                                                    class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                                <form class="d-inline" action="{{ route('kas.destroy', $d['id']) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                                            class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td> --}}
                                         </td>
                                     </tr>
                                 @empty
-                                    <h1>DATA EMPTY</h1>
                                 @endforelse
                             </tbody>
                         </table>

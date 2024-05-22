@@ -38,4 +38,14 @@ class Member extends Model
     {
         return $this->belongsTo(Division::class, 'divisi_id', 'id');
     }
+
+    function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'member_id', 'id');
+    }
+
+    function transactionNominal()
+    {
+        return $this->hasMany(Transaction::class, 'member_id', 'id')->selectRaw('SUM(nominal) as total')->groupBy('member_id');
+    }
 }
