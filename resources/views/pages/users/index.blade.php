@@ -55,11 +55,13 @@
                                             <span class="text-secondary text-xs font-weight-bold">{{ $d['npm'] }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            @if ($d['is_active'] == true)
-                                                <span class="badge badge-sm bg-gradient-success">Active</span>
-                                            @else
-                                                <span class="badge badge-sm bg-gradient-danger">Non Active</span>
-                                            @endif
+                                            <a href="{{ route('users.active', $d['id']) }}">
+                                                @if ($d['is_active'] == true)
+                                                    <span class="badge badge-sm bg-gradient-success">Active</span>
+                                                @else
+                                                    <span class="badge badge-sm bg-gradient-danger">Non Active</span>
+                                                @endif
+                                            </a>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span

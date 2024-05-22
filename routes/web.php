@@ -337,6 +337,7 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
     Route::get('/create', "create")->name('create');
     Route::get('/{id}', "show")->name('show');
     Route::get('/{id}/edit', "edit")->name('edit');
+    Route::get('/{id}/active', "active")->name('active');
     Route::post('/', "store")->name('store');
     Route::put('/{id}', "update")->name('update');
     Route::delete('/{id}', "destroy")->name('destroy');

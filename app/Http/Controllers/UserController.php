@@ -180,4 +180,21 @@ class UserController extends Controller
         User::destroy($id);
         return redirect()->route('users.index');
     }
+
+    public function active($id)
+    {
+        $data = User::findOrFail($id);
+
+        if ($data['is_active'] == 1) {
+            $update_active = 0;
+        } else {
+            $update_active = 1;
+        }
+
+        $data->update([
+            'is_active' => $update_active
+        ]);
+
+        return redirect()->route('users.index');
+    }
 }

@@ -25,6 +25,10 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Password Salah!');
         }
 
+        if ($user['is_active'] == 0) {
+            return redirect()->back()->with('error', 'User Disabled!');
+        }
+
         $request->session()->regenerate();
         $request->session()->put('isLogged', true);
         $request->session()->put('userId', $user->id);
