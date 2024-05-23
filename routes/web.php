@@ -371,4 +371,5 @@ Route::resource('expenses', ExpenseController::class)->middleware(["authenticate
 Route::controller(ProfileController::class)->middleware(["authenticate"])->prefix('profile')->name('profile.')->group(function () {
     Route::get('/', "index")->name('index');
     Route::put('/', "update")->name('update');
+    Route::put('/change-password', "update_password")->name('change_password');
 });

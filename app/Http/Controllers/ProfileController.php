@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -57,6 +58,30 @@ class ProfileController extends Controller
             'birthday'         => $request->birthday,
             'address'         => $request->address,
             'image'         => $imageName,
+        ]);
+
+        return redirect()->route('profile.index');
+    }
+
+    public function update_password(Request $request)
+    {
+        $user = User::findOrFail(session()->get('userId'));
+        $rules = [
+            'password_old'         => 'required',
+            'password'         => 'required|min:3|confirmed',
+            'password_confirmation'         => 'required|min:3',
+        ];
+
+        if (!Hash::check($request->password_old, $user->password)) {
+            echo "<script>alert('Password Current Salah');window.location.href = '" . url('profile') . "'</script>";
+            exit;
+            // return redirect()->route('profile.index');
+        }
+
+        $request->validate($rules);
+
+        $user->update([
+            'password' => Hash::make($request->password)
         ]);
 
         return redirect()->route('profile.index');

@@ -53,9 +53,10 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">Email
+                                                <label for="email" class="form-control-label">Email
                                                     address</label>
-                                                <input class="form-control" name="email" id="email" type="email"
+                                                <input class="form-control @error('email') is-invalid @enderror"
+                                                    name="email" id="email" type="email"
                                                     value="{{ $user->email }}">
                                             </div>
 
@@ -68,8 +69,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">Name</label>
-                                                <input class="form-control" id="name" name="name" type="text"
+                                                <label for="name" class="form-control-label">Name</label>
+                                                <input class="form-control @error('name') is-invalid @enderror"
+                                                    id="name" name="name" type="text"
                                                     value="{{ $user->name }}">
                                             </div>
 
@@ -81,8 +83,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">NPM</label>
-                                                <input class="form-control" id="npm" name="npm" type="text"
+                                                <label for="npm" class="form-control-label">NPM</label>
+                                                <input class="form-control @error('npm') is-invalid @enderror"
+                                                    id="npm" name="npm" type="text"
                                                     value="{{ $user->npm }}">
                                             </div>
 
@@ -94,9 +97,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">Birthday</label>
-                                                <input class="form-control" id="birthday" name="birthday"
-                                                    type="date" value="{{ $user->birthday }}">
+                                                <label for="birthday" class="form-control-label">Birthday</label>
+                                                <input class="form-control" id="birthday" name="birthday" type="date"
+                                                    value="{{ $user->birthday }}">
                                             </div>
 
                                             @error('birthday')
@@ -107,8 +110,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">Foto</label>
-                                                <input class="form-control" type="file" id="image" name="image">
+                                                <label for="image" class="form-control-label">Foto</label>
+                                                <input class="form-control @error('image') is-invalid @enderror"
+                                                    type="file" id="image" name="image">
                                             </div>
 
                                             @error('image')
@@ -119,7 +123,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">Address</label>
+                                                <label for="address" class="form-control-label">Address</label>
                                                 <textarea class="form-control" name="address" id="address" cols="30" rows="5">{{ $user->address }}</textarea>
 
                                             </div>
@@ -135,64 +139,67 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card card-profile">
-                            <img src="assets/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top">
-                            <div class="row justify-content-center">
-                                <div class="col-4 col-lg-4 order-lg-2">
-                                    <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
-                                        <a href="javascript:;">
-                                            <img src="assets/img/team-2.jpg"
-                                                class="rounded-circle img-fluid border border-2 border-white">
-                                        </a>
-                                    </div>
+                        <div class="card">
+                            <div class="card-header pb-0">
+                                <div class="d-flex align-items-center">
+                                    <p class="mb-0">Change Password</p>
                                 </div>
                             </div>
-                            <div class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3">
-                                <div class="d-flex justify-content-between">
-                                    <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-none d-lg-block">Connect</a>
-                                    <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-block d-lg-none"><i
-                                            class="ni ni-collection"></i></a>
-                                    <a href="javascript:;"
-                                        class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
-                                    <a href="javascript:;"
-                                        class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none"><i
-                                            class="ni ni-email-83"></i></a>
-                                </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="d-flex justify-content-center">
-                                            <div class="d-grid text-center">
-                                                <span class="text-lg font-weight-bolder">22</span>
-                                                <span class="text-sm opacity-8">Friends</span>
+                            <div class="card-body">
+                                <form action="{{ route('profile.change_password') }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="password_old" class="form-control-label">Password
+                                                    Current</label>
+                                                <input class="form-control @error('password_old') is-invalid @enderror"
+                                                    id="password_old" name="password_old" type="password">
                                             </div>
-                                            <div class="d-grid text-center mx-4">
-                                                <span class="text-lg font-weight-bolder">10</span>
-                                                <span class="text-sm opacity-8">Photos</span>
+
+                                            @error('password_old')
+                                                <p class="text-danger">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
+
+                                            <div class="form-group">
+                                                <label for="password" class="form-control-label">Password
+                                                    New</label>
+                                                <input class="form-control @error('password') is-invalid @enderror"
+                                                    id="password" name="password" type="password">
                                             </div>
-                                            <div class="d-grid text-center">
-                                                <span class="text-lg font-weight-bolder">89</span>
-                                                <span class="text-sm opacity-8">Comments</span>
+
+                                            @error('password')
+                                                <p class="text-danger">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
+
+                                            <div class="form-group">
+                                                <label for="password_confirmation" class="form-control-label">Password
+                                                    Confirmation</label>
+                                                <input
+                                                    class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                    id="password_confirmation" name="password_confirmation"
+                                                    type="password">
                                             </div>
+
+                                            @error('password_confirmation')
+                                                <p class="text-danger">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
                                         </div>
                                     </div>
-                                </div>
-                                <div class="text-center mt-4">
-                                    <h5>
-                                        Mark Davis<span class="font-weight-light">, 35</span>
-                                    </h5>
-                                    <div class="h6 font-weight-300">
-                                        <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                                    <div class="row">
+                                        <div class="col text-end">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
                                     </div>
-                                    <div class="h6 mt-4">
-                                        <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim
-                                        Officer
-                                    </div>
-                                    <div>
-                                        <i class="ni education_hat mr-2"></i>University of Computer Science
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
