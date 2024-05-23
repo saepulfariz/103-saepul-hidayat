@@ -347,7 +347,7 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
 Route::resource('divisions', DivisionController::class)->middleware(["authenticate:admin"]);
 Route::resource('members', MemberController::class)->middleware(["authenticate:admin"]);
 Route::resource('meetings', MeetingController::class)->middleware(["authenticate:admin|sekretaris"]);
-Route::controller(AttendanceController::class)->prefix('meetings/attendances')->name('attendances.')->group(function () {
+Route::controller(AttendanceController::class)->middleware(["authenticate:admin|sekretaris"])->prefix('meetings/attendances')->name('attendances.')->group(function () {
     Route::get('/{id}/create', "create")->name('create');
     Route::get('/{id}', "index")->name('index');
     Route::get('/{id}/edit', "edit")->name('edit');
