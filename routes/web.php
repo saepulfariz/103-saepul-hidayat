@@ -10,6 +10,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('pages.auth.login');
@@ -366,3 +367,8 @@ Route::controller(KasController::class)->middleware(["authenticate:admin|bendaha
     // Route::delete('/{id}', "destroy")->name('destroy');
 });
 Route::resource('expenses', ExpenseController::class)->middleware(["authenticate:admin|bendahara"]);
+
+Route::controller(ProfileController::class)->middleware(["authenticate"])->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', "index")->name('index');
+    Route::put('/', "update")->name('update');
+});
