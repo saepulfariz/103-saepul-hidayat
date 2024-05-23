@@ -73,8 +73,8 @@
                                                 class="text-secondary text-xs font-weight-bold">{{ $d['recapitulation'] }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="{{ route('meetings.index', $d['id']) }}" class="btn btn-sm btn-info"><i
-                                                    class="fas fa-calendar-check"></i></i></a>
+                                            <a href="{{ route('attendances.index', $d['id']) }}"
+                                                class="btn btn-sm btn-info"><i class="fas fa-calendar-check"></i></i></a>
                                             <a href="{{ route('meetings.edit', $d['id']) }}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{ route('meetings.destroy', $d['id']) }}"
