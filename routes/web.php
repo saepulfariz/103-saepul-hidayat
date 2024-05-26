@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\KasController;
-use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\TransactionHistoryController;
 
 Route::get('/', function () {
     return view('pages.auth.login');
@@ -373,3 +374,5 @@ Route::controller(ProfileController::class)->middleware(["authenticate"])->prefi
     Route::put('/', "update")->name('update');
     Route::put('/change-password', "update_password")->name('change_password');
 });
+
+Route::get('/transaction_history', [TransactionHistoryController::class, 'index'])->name('transaction_history.index');
