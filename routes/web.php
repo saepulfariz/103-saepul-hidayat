@@ -11,6 +11,7 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionHistoryController;
 
 Route::get('/', function () {
@@ -287,49 +288,51 @@ Route::controller(AuthController::class)->prefix("auth")->name('auth.')->group(f
     Route::get("/logout", "logout")->name("logout");
 });
 
-Route::get('/dashboard', function () {
-    $resume = [
-        [
-            'title' => "TODAY'S MONEY",
-            'number' => "$53,000",
-            'percentage' => "+55%",
-            'increst' => true,
-            'since' => "since yesterday",
-            'icon' => "ni ni-money-coins",
-            'icon-bg' => "bg-gradient-primary shadow-primary",
-        ],
-        [
-            'title' => "TODAY'S USERS",
-            'number' => "2,300",
-            'percentage' => "+3%",
-            'increst' => true,
-            'since' => "since last week",
-            'icon' => "ni ni-world",
-            'icon-bg' => "bg-gradient-danger shadow-danger",
-        ],
-        [
-            'title' => "NEW CLIENTS",
-            'number' => "+3,462",
-            'percentage' => "-2%",
-            'increst' => false,
-            'since' => "since last quarter",
-            'icon' => "ni ni-paper-diploma",
-            'icon-bg' => "bg-gradient-success shadow-success",
-        ],
-        [
-            'title' => "SALES",
-            'number' => "$103,430",
-            'percentage' => "+5%",
-            'increst' => true,
-            'since' => "than last month",
-            'icon' => "ni ni-cart",
-            'icon-bg' => "bg-gradient-warning shadow-warnin",
-        ],
-    ];
-    return view('pages.dashboard.index', [
-        'resume' => $resume
-    ]);
-})->middleware(Authenticate::class)->name('dashboard.index');
+// Route::get('/dashboard', function () {
+//     $resume = [
+//         [
+//             'title' => "TODAY'S MONEY",
+//             'number' => "$53,000",
+//             'percentage' => "+55%",
+//             'increst' => true,
+//             'since' => "since yesterday",
+//             'icon' => "ni ni-money-coins",
+//             'icon-bg' => "bg-gradient-primary shadow-primary",
+//         ],
+//         [
+//             'title' => "TODAY'S USERS",
+//             'number' => "2,300",
+//             'percentage' => "+3%",
+//             'increst' => true,
+//             'since' => "since last week",
+//             'icon' => "ni ni-world",
+//             'icon-bg' => "bg-gradient-danger shadow-danger",
+//         ],
+//         [
+//             'title' => "NEW CLIENTS",
+//             'number' => "+3,462",
+//             'percentage' => "-2%",
+//             'increst' => false,
+//             'since' => "since last quarter",
+//             'icon' => "ni ni-paper-diploma",
+//             'icon-bg' => "bg-gradient-success shadow-success",
+//         ],
+//         [
+//             'title' => "SALES",
+//             'number' => "$103,430",
+//             'percentage' => "+5%",
+//             'increst' => true,
+//             'since' => "than last month",
+//             'icon' => "ni ni-cart",
+//             'icon-bg' => "bg-gradient-warning shadow-warnin",
+//         ],
+//     ];
+//     return view('pages.dashboard.index', [
+//         'resume' => $resume
+//     ]);
+// })->middleware(Authenticate::class)->name('dashboard.index');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(Authenticate::class)->name('dashboard.index');
 
 Route::controller(UserController::class)->middleware(["authenticate:admin"])->prefix("users")->name("users.")->group(function () {
     // ->middleware(Authenticate::class)
