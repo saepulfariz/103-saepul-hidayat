@@ -35,7 +35,7 @@
                     href="{{ route('divisions.index') }}">
                     <div
                         class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-square text-warning text-sm opacity-10"></i>
+                        <i class="fas fa-id-card-alt text-danger text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Divisions</span>
                 </a>
@@ -46,7 +46,7 @@
                     href="{{ route('members.index') }}">
                     <div
                         class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-square text-warning text-sm opacity-10"></i>
+                        <i class="fas fa-id-card text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Members</span>
                 </a>
@@ -58,7 +58,7 @@
                     href="{{ route('meetings.index') }}">
                     <div
                         class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-square text-warning text-sm opacity-10"></i>
+                        <i class="fas  fa-landmark text-warning text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Meetings</span>
                 </a>
@@ -70,7 +70,7 @@
                     href="{{ route('kas.index') }}">
                     <div
                         class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-square text-warning text-sm opacity-10"></i>
+                        <i class="fas fa-hand-holding-usd text-success text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Kas</span>
                 </a>
@@ -80,7 +80,7 @@
                     href="{{ route('expenses.index') }}">
                     <div
                         class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-square text-warning text-sm opacity-10"></i>
+                        <i class="fas fa-credit-card text-danger text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Expenses</span>
                 </a>
@@ -91,7 +91,7 @@
                     href="{{ route('transaction_history.index') }}">
                     <div
                         class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-square text-warning text-sm opacity-10"></i>
+                        <i class="fas fa-funnel-dollar text-secondary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Transaction History</span>
                 </a>
