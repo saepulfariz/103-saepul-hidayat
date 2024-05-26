@@ -53,6 +53,56 @@ class DashboardController extends Controller
         } else {
             $saldo_percentage = ($saldo_akhir - $saldo_awal) / $saldo_awal * 100;
         }
+
+
+        $kas = DB::select("SELECT
+                            CONVERT(datetime, date) as date,
+                            SUM(nominal) as saldo
+                        FROM
+                            transactions as a
+                        WHERE
+                            type = 'debit'
+                        GROUP BY
+                            CONVERT(datetime, date)
+                        ORDER BY
+                            CONVERT(datetime, date) DESC
+                        LIMIT
+                            0, 2");
+
+        $kas_awal = (isset($kas[1])) ? ($kas[1]->saldo) : 0;
+        $kas_akhir = (isset($kas[0])) ? ($kas[0]->saldo) : 0;
+        $kas_increst = ($kas_akhir > $kas_awal) ? true : false;
+        if ($kas_awal == 0 || $kas_akhir == 0) {
+            $kas_percentage = 0;
+            $kas_increst = false;
+        } else {
+            $kas_percentage = ($kas_akhir - $kas_awal) / $kas_awal * 100;
+        }
+
+        $expenses = DB::select("SELECT
+                            CONVERT(datetime, date) as date,
+                            SUM(nominal) as saldo
+                        FROM
+                            transactions as a
+                        WHERE
+                            type = 'credit'
+                        GROUP BY
+                            CONVERT(datetime, date)
+                        ORDER BY
+                            CONVERT(datetime, date) DESC
+                        LIMIT
+                            0, 2");
+
+        $expenses_awal = (isset($expenses[1])) ? ($expenses[1]->saldo) : 0;
+        $expenses_akhir = (isset($expenses[0])) ? ($expenses[0]->saldo) : 0;
+        $expenses_increst = ($expenses_akhir > $expenses_awal) ? true : false;
+        if ($expenses_awal == 0 || $expenses_akhir == 0) {
+            $expenses_percentage = 0;
+            $expenses_increst = false;
+        } else {
+            $expenses_percentage = ($expenses_akhir - $expenses_awal) / $expenses_awal * 100;
+        }
+
         $resume = [
             [
                 'title' => "TODAY'S MONEY",
@@ -64,22 +114,22 @@ class DashboardController extends Controller
                 'icon-bg' => "bg-gradient-primary shadow-primary",
             ],
             [
-                'title' => "TODAY'S USERS",
-                'number' => "2,300",
-                'percentage' => "+3%",
-                'increst' => true,
-                'since' => "since last week",
-                'icon' => "ni ni-world",
-                'icon-bg' => "bg-gradient-danger shadow-danger",
+                'title' => "TODAY'S KAS",
+                'number' => number_format($kas_akhir, 0, ',', '.'),
+                'percentage' => (($kas_increst) ? '+' : '') . $kas_percentage . '%',
+                'increst' => $kas_increst,
+                'since' => "since before",
+                'icon' => "fas fa-hand-holding-usd",
+                'icon-bg' => "bg-gradient-success shadow-success",
             ],
             [
-                'title' => "NEW CLIENTS",
-                'number' => "+3,462",
-                'percentage' => "-2%",
-                'increst' => false,
-                'since' => "since last quarter",
-                'icon' => "ni ni-paper-diploma",
-                'icon-bg' => "bg-gradient-success shadow-success",
+                'title' => "TODAY'S EXPENSES",
+                'number' => number_format($expenses_akhir, 0, ',', '.'),
+                'percentage' => (($expenses_increst) ? '+' : '') . $expenses_percentage . '%',
+                'increst' => $expenses_increst,
+                'since' => "since before",
+                'icon' => "fas fa-credit-card",
+                'icon-bg' => "bg-gradient-danger shadow-danger",
             ],
             [
                 'title' => "SALES",
