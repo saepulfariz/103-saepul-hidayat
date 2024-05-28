@@ -111,16 +111,34 @@ class KasController extends Controller
     public function report()
     {
         $members = Member::all();
-        $kas = Transaction::where('type', 'debit')->orderBy('id', 'DESC')->first();
+        $kas = Transaction::where('type', 'debit')->orderBy('id', 'ASC')->first();
+        $range_date = [];
+        if ($kas) {
+            $range_date  = MyHelper::getDatesFromRange(date('Y-m-d', strtotime($kas['datetime'])), date('Y-m-d'));
+        }
         $report = [];
         $a = 0;
         foreach ($members as $member) {
+            $kas_members = [];
+            foreach ($range_date as $date) {
+                $kas_member =  Transaction::where('type', 'debit')->whereRaw("CONVERT(datetime, date) = '" . $date . "'")->where('member_id', $member['id'])->orderBy('id', 'DESC')->first();
+                $kas_member = ($kas_member) ? $kas_member['nominal'] : 0;
+                $kas_members[] = [
+                    'date' => $date,
+                    'nominal' => $kas_member,
+                ];
+            }
             $report[] = [
                 'name' => $member->user->name,
-                'kas' => MyHelper::myFunction('TEST')
+                'kas' => $kas_members
             ];
         }
 
-        dd($report);
+        $data = [
+            'data' => $report,
+            'menu' => 'Report',
+            'range_date' => $range_date,
+        ];
+        return view('pages.kas.report', $data);
     }
 }

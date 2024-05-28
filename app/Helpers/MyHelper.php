@@ -10,7 +10,7 @@ class MyHelper
         return "HELPER-" . $arg;
     }
 
-    function getDatesFromRange($start, $end, $format = 'Y-m-d')
+    public static function getDatesFromRange($start, $end, $format = 'Y-m-d')
     {
         if ($start == $end) {
             $data[] = $start;
