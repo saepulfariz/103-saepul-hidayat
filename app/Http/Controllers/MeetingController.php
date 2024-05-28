@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use App\Models\Meeting;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 
 class MeetingController extends Controller
@@ -112,5 +114,29 @@ class MeetingController extends Controller
         $data->delete();
 
         return redirect()->route('meetings.index');
+    }
+
+    public function report()
+    {
+        $members = Member::all();
+        $meetings = Meeting::all();
+        $report = [];
+        $a = 0;
+        foreach ($members as $member) {
+            $attendances = [];
+            foreach ($meetings as $meet) {
+                $attendance =  Attendance::where('meet_id', $meet['id'])->where('member_id', $member['id'])->first();
+                $attendances[] = [
+                    'title' => $meet->title,
+                    'tgl' => $meet->date,
+                    'presensi' => ($attendance) ? $attendance->presensi : '-',
+                ];
+            }
+            $report[] = [
+                'name' => $member->user->name,
+                'attendances' => $attendances
+            ];
+        }
+        dd($report);
     }
 }
