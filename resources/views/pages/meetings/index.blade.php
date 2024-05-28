@@ -9,6 +9,8 @@
             <div class="row mt-2">
                 <div class="col-sm-6"></div>
                 <div class="col-sm-6 text-end">
+                    <a href="{{ route('meetings.report') }}" class="btn btn-info me-2"><i class="fas fa-file-export"></i></i>
+                        REPORT</a>
                     <a href="{{ route('meetings.create') }}" class="btn btn-success me-2"><i class="fas fa-plus"></i>
                         INPUT</a>
                 </div>

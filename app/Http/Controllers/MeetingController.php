@@ -120,6 +120,7 @@ class MeetingController extends Controller
     {
         $members = Member::all();
         $meetings = Meeting::all();
+        $presensis = (new Attendance)->presensis;
         $report = [];
         $a = 0;
         foreach ($members as $member) {
@@ -132,11 +133,27 @@ class MeetingController extends Controller
                     'presensi' => ($attendance) ? $attendance->presensi : '-',
                 ];
             }
+            $summary_presensi = [];
+            foreach ($presensis as $presensi) {
+                $jumlah_presensi = Attendance::selectRaw('COUNT(id) as jumlah')->where('presensi', "$presensi")->where('member_id', $member['id'])->first();
+                $jumlah_presensi = ($jumlah_presensi) ? $jumlah_presensi['jumlah'] : 0;
+                $summary_presensi[] = [
+                    "presensi" => $presensi,
+                    "jumlah" => $jumlah_presensi,
+                ];
+            }
             $report[] = [
                 'name' => $member->user->name,
-                'attendances' => $attendances
+                'attendances' => $attendances,
+                'summary_presensi' => $summary_presensi,
             ];
         }
-        dd($report);
+        $data = [
+            'data' => $report,
+            'menu' => 'Report',
+            'meetings' => $meetings,
+            'presensis' => $presensis
+        ];
+        return view('pages.meetings.report', $data);
     }
 }

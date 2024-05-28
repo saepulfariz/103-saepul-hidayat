@@ -351,7 +351,7 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
 
 Route::resource('divisions', DivisionController::class)->middleware(["authenticate:admin"]);
 Route::resource('members', MemberController::class)->middleware(["authenticate:admin"]);
-Route::get('/meetings/report', [MeetingController::class, 'report'])->name('meetings.report');
+Route::get('/meetings/report', [MeetingController::class, 'report'])->middleware(["authenticate:admin|sekretaris"])->name('meetings.report');
 Route::resource('meetings', MeetingController::class)->middleware(["authenticate:admin|sekretaris"]);
 Route::controller(AttendanceController::class)->middleware(["authenticate:admin|sekretaris"])->prefix('meetings/attendances')->name('attendances.')->group(function () {
     Route::get('/{id}/create', "create")->name('create');
@@ -379,4 +379,4 @@ Route::controller(ProfileController::class)->middleware(["authenticate"])->prefi
     Route::put('/change-password', "update_password")->name('change_password');
 });
 
-Route::get('/transaction_history', [TransactionHistoryController::class, 'index'])->name('transaction_history.index');
+Route::get('/transaction_history', [TransactionHistoryController::class, 'index'])->middleware(["authenticate:admin|bendahara"])->name('transaction_history.index');
