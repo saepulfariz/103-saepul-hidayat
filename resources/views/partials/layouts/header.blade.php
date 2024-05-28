@@ -18,6 +18,13 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
 
+    {{-- <link href="{{ asset('assets/plugins/DataTables-2.0.7/css/dataTables.dataTables.css') }}" rel="stylesheet" /> --}}
+    <link href="{{ asset('assets/plugins/DataTables-2.0.7/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+
+    <link href="{{ asset('assets/plugins/Buttons-3.0.2/css/buttons.dataTables.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/Buttons-3.0.2/css/buttons.bootstrap5.css') }}" rel="stylesheet" />
+
+
     @yield('head')
     <style>
         .navbar-vertical.navbar-expand-xs .navbar-collapse {
