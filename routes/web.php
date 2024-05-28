@@ -351,8 +351,10 @@ Route::controller(UserController::class)->middleware(["authenticate:admin"])->pr
 
 Route::resource('divisions', DivisionController::class)->middleware(["authenticate:admin"]);
 Route::resource('members', MemberController::class)->middleware(["authenticate:admin"]);
+
 Route::get('/meetings/report', [MeetingController::class, 'report'])->middleware(["authenticate:admin|sekretaris"])->name('meetings.report');
 Route::resource('meetings', MeetingController::class)->middleware(["authenticate:admin|sekretaris"]);
+
 Route::controller(AttendanceController::class)->middleware(["authenticate:admin|sekretaris"])->prefix('meetings/attendances')->name('attendances.')->group(function () {
     Route::get('/{id}/create', "create")->name('create');
     Route::get('/{id}', "index")->name('index');
@@ -362,7 +364,9 @@ Route::controller(AttendanceController::class)->middleware(["authenticate:admin|
     Route::delete('/{id}', "destroy")->name('destroy');
 });
 
+
 Route::controller(KasController::class)->middleware(["authenticate:admin|bendahara"])->prefix('kas')->name('kas.')->group(function () {
+    Route::get('/report', "report")->name('report');
     Route::get('/', "index")->name('index');
     Route::get('/{id}/create', "create")->name('create');
     Route::get('/{id}', "show")->name('show');

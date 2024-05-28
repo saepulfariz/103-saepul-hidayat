@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Helpers\MyHelper;
 use App\Models\Transaction;
-use App\Models\TransactionHistory;
 use Illuminate\Http\Request;
+use App\Models\TransactionHistory;
 
 class KasController extends Controller
 {
@@ -105,5 +106,21 @@ class KasController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function report()
+    {
+        $members = Member::all();
+        $kas = Transaction::where('type', 'debit')->orderBy('id', 'DESC')->first();
+        $report = [];
+        $a = 0;
+        foreach ($members as $member) {
+            $report[] = [
+                'name' => $member->user->name,
+                'kas' => MyHelper::myFunction('TEST')
+            ];
+        }
+
+        dd($report);
     }
 }
