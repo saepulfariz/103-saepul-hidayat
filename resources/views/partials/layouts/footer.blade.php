@@ -31,7 +31,8 @@
     }
 
     $('.table').DataTable({
-        dom: 'Bflrtip',
+        // dom: 'Bflrtip',
+        dom: "Bfl<'mb-2'>rt<'row '<'col-sm-6'i><'col-sm d-flex flex-row justify-content-end'p>>",
         buttons: [{
                 extend: 'excel',
                 className: "btn bg-tranparent btn-sm btn-success",
