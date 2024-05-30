@@ -33,7 +33,7 @@ class OrganizationController extends Controller
             $logo = $request->file('logo');
             $logoName = time() . "-" . $logo->hashName();
 
-            if (file_exists(public_path("assets/uploads/organizations/" . $data->logo)) && ($data->logo != 'himasi.png' || $data->logo != 'fasilkom.png' || $data->logo != 'profa.png' || $data->logo != 'unsub.png')) {
+            if (file_exists(public_path("assets/uploads/organizations/" . $data->logo)) && ($data->logo != 'himasi.png' && $data->logo != 'fasilkom.png' && $data->logo != 'profa.png' && $data->logo != 'unsub.png')) {
                 unlink("assets/uploads/organizations/" . $data->logo);
             }
 

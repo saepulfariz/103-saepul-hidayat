@@ -1,6 +1,6 @@
 @extends('partials.layouts.auth')
 
-@section('title', 'KAS - SIMASI')
+@section('title', 'KAS')
 
 @section('head')
     <style>
@@ -15,7 +15,8 @@
         <div class="container mt-4">
             <div class="row mb-2">
                 <div class="col-12 text-center">
-                    <h1 class="text-white">HIMASI<span class="text-success">22</span></h1>
+                    <h1 class="text-white">{{ session()->get('organization')['shortname'] }}-<span
+                            class="text-success">{{ session()->get('organization')['year'] }}</span></h1>
                 </div>
             </div>
             <div class="row justify-content-center">

@@ -276,11 +276,11 @@ Route::get('/setSession', function () {
 });
 
 Route::get('/getSession', function () {
-    return [
-        'nama' => session()->get('nama'),
-        'umur' => session()->get('umur'),
-        'asalkota' => session()->get('asalkota'),
-    ];
+    // return [
+    //     'nama' => session()->get('nama'),
+    //     'umur' => session()->get('umur'),
+    //     'asalkota' => session()->get('asalkota'),
+    // ];
     return session()->all();
 });
 

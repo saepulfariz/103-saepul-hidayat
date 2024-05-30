@@ -1,6 +1,6 @@
 @extends('partials.layouts.app')
 
-@section('title', 'Division - SIMASI')
+@section('title', 'Division')
 @section('menu', $menu)
 
 @section('content')
