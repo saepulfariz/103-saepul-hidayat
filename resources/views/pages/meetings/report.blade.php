@@ -45,7 +45,7 @@
                                 @php
                                     $a = 1;
                                 @endphp
-                                @forelse ($data as $d)
+                                @foreach ($data as $d)
                                     <tr>
                                         <td><span
                                                 class="text-secondary text-xs font-weight-bold text-center px-3 py-1">{{ $a++ }}</span>
@@ -69,9 +69,7 @@
                                         @endforeach
 
                                     </tr>
-                                @empty
-                                    <h1>DATA EMPTY</h1>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

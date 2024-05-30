@@ -37,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $d)
+                                @foreach ($users as $d)
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
@@ -81,9 +81,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @empty
-                                    <h1>DATA EMPTY</h1>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
