@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
+use App\Models\Division;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionHistory;
@@ -104,11 +106,14 @@ class DashboardController extends Controller
             $expenses_percentage = ($expenses_akhir - $expenses_awal) / $expenses_awal * 100;
         }
 
+        $members = count(Member::all());
+        $division = count(Division::all());
+
         $resume = [
             [
                 'title' => "TODAY'S MONEY",
                 'number' => number_format($saldo_akhir, 0, ',', '.'),
-                'percentage' => (($saldo_increst) ? '+' : '') . $saldo_percentage . '%',
+                'percentage' => (($saldo_increst) ? '+' : '') . round($saldo_percentage) . '%',
                 'increst' => $saldo_increst,
                 'since' => "since before",
                 'icon' => "ni ni-money-coins",
@@ -117,7 +122,7 @@ class DashboardController extends Controller
             [
                 'title' => "TODAY'S KAS",
                 'number' => number_format($kas_akhir, 0, ',', '.'),
-                'percentage' => (($kas_increst) ? '+' : '') . $kas_percentage . '%',
+                'percentage' => (($kas_increst) ? '+' : '') . round($kas_percentage) . '%',
                 'increst' => $kas_increst,
                 'since' => "since before",
                 'icon' => "fas fa-hand-holding-usd",
@@ -126,19 +131,19 @@ class DashboardController extends Controller
             [
                 'title' => "TODAY'S EXPENSES",
                 'number' => number_format($expenses_akhir, 0, ',', '.'),
-                'percentage' => (($expenses_increst) ? '+' : '') . $expenses_percentage . '%',
+                'percentage' => (($expenses_increst) ? '+' : '') . round($expenses_percentage) . '%',
                 'increst' => $expenses_increst,
                 'since' => "since before",
                 'icon' => "fas fa-credit-card",
                 'icon-bg' => "bg-gradient-danger shadow-danger",
             ],
             [
-                'title' => "SALES",
-                'number' => "$103,430",
-                'percentage' => "+5%",
+                'title' => "MEMBERS",
+                'number' => $members,
+                'percentage' => $division,
                 'increst' => true,
-                'since' => "than last month",
-                'icon' => "ni ni-cart",
+                'since' => "division register",
+                'icon' => "fas fa-id-card",
                 'icon-bg' => "bg-gradient-warning shadow-warnin",
             ],
         ];
