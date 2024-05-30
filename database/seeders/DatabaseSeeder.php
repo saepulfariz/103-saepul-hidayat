@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DivisionSeeder::class,
             MemberSeeder::class,
+            OrganizationSeeder::class,
         ]);
     }
 }
