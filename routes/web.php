@@ -12,11 +12,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransactionHistoryController;
 
-Route::get('/', function () {
-    return view('pages.auth.login');
-});
+
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home', [HomeController::class, 'index'])->name('home.home');
+Route::get('/home/kas', [HomeController::class, 'kas'])->name('home.kas');
+Route::get('/home/attendances', [HomeController::class, 'attendances'])->name('home.attendances');
+
+// Route::get('/', function () {
+//     return view('pages.auth.login');
+// });
 
 // Route::get('/login', function () {
 //     return view('pages.auth.login');
