@@ -1,6 +1,6 @@
 @extends('partials.layouts.auth')
 
-@section('title', 'HOME - SIMASI')
+@section('title', 'ATTENDANCES - SIMASI')
 
 @section('head')
     <style>
