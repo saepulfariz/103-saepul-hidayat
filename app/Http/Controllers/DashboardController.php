@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionHistory;
 use Illuminate\Support\Facades\DB;
@@ -142,7 +143,8 @@ class DashboardController extends Controller
             ],
         ];
         return view('pages.dashboard.index', [
-            'resume' => $resume
+            'resume' => $resume,
+            'chart' => Transaction::getTransactionDaily()
         ]);
     }
 }

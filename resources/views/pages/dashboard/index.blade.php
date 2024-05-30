@@ -11,10 +11,10 @@
         <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card z-index-2 h-100">
                 <div class="card-header pb-0 pt-3 bg-transparent">
-                    <h6 class="text-capitalize">Sales overview</h6>
+                    <h6 class="text-capitalize">Transaction overview</h6>
                     <p class="text-sm mb-0">
-                        <i class="fa fa-arrow-up text-success"></i>
-                        <span class="font-weight-bold">4% more</span> in 2021
+                        {{-- <i class="fa fa-arrow-up text-success"></i>
+                        <span class="font-weight-bold">4% more</span> in 2021 --}}
                     </p>
                 </div>
                 <div class="card-body p-3">
@@ -90,17 +90,41 @@
         new Chart(ctx1, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: [
+                    @foreach ($chart['debit'] as $d)
+                        "{{ $d['tanggal'] }}",
+                    @endforeach
+                ],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Kas",
                     tension: 0.4,
                     borderWidth: 0,
                     pointRadius: 0,
-                    borderColor: "#5e72e4",
+                    borderColor: "#2DCEB4",
                     backgroundColor: gradientStroke1,
                     borderWidth: 3,
                     fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    data: [
+                        @foreach ($chart['debit'] as $d)
+                            {{ $d['jumlah'] }},
+                        @endforeach
+                    ],
+                    maxBarThickness: 6
+
+                }, {
+                    label: "Expense",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    pointRadius: 0,
+                    borderColor: "#F54E45",
+                    backgroundColor: gradientStroke1,
+                    borderWidth: 3,
+                    fill: true,
+                    data: [
+                        @foreach ($chart['credit'] as $d)
+                            {{ $d['jumlah'] }},
+                        @endforeach
+                    ],
                     maxBarThickness: 6
 
                 }],
