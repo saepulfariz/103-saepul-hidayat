@@ -20,6 +20,16 @@
         </li>
         @if (session()->get('role') == 'admin')
             <li class="nav-item">
+                <a class="nav-link {{ request()->segment(1) == 'organizations' ? 'active' : '' }}"
+                    href="{{ route('organizations.index') }}">
+                    <div
+                        class="icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-sitemap text-info text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Organizations</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}"
                     href="{{ route('users.index') }}">
                     <div

@@ -13,6 +13,7 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\TransactionHistoryController;
 
 
@@ -391,3 +392,13 @@ Route::controller(ProfileController::class)->middleware(["authenticate"])->prefi
 });
 
 Route::get('/transaction_history', [TransactionHistoryController::class, 'index'])->middleware(["authenticate:admin|bendahara"])->name('transaction_history.index');
+
+Route::controller(OrganizationController::class)->middleware(["authenticate:admin"])->prefix('organizations')->name('organizations.')->group(function () {
+    Route::get('/', "index")->name('index');
+    // Route::get('/create', "create")->name('create');
+    // Route::get('/{id}', "show")->name('show');
+    // Route::post('/{id}', "store")->name('store');
+    // Route::get('/{id}/edit', "edit")->name('edit');
+    Route::put('/{id}', "update")->name('update');
+    // Route::delete('/{id}', "destroy")->name('destroy');
+});

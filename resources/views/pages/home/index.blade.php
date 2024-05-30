@@ -22,7 +22,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <img class="img-thumbnail" src="{{ asset('assets/uploads/organisasi/himasi.png') }}"
+                            <img class="img-thumbnail" src="{{ asset('assets/uploads/organizations/himasi.png') }}"
                                 alt="">
                         </div>
                     </div>
