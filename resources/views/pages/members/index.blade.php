@@ -71,8 +71,8 @@
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash"></i></button>
+                                                <button type="button" onclick='deleteTombol(this)'
+                                                    class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

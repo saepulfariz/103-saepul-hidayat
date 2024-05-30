@@ -54,7 +54,7 @@ class MeetingController extends Controller
             'recapitulation'         => $request->recapitulation,
         ]);
 
-        return redirect()->route('meetings.index');
+        return redirect()->route('meetings.index')->with('success', 'Add Success');
     }
 
     /**
@@ -101,7 +101,7 @@ class MeetingController extends Controller
             'recapitulation'         => $request->recapitulation,
         ]);
 
-        return redirect()->route('meetings.index');
+        return redirect()->route('meetings.index')->with('success', 'Edit Success');
     }
 
     /**
@@ -113,7 +113,7 @@ class MeetingController extends Controller
 
         $data->delete();
 
-        return redirect()->route('meetings.index');
+        return redirect()->route('meetings.index')->with('success', 'Delete Success');;
     }
 
     public function report()

@@ -43,7 +43,7 @@ class DivisionController extends Controller
             'name'         => $request->name,
         ]);
 
-        return redirect()->route('divisions.index');
+        return redirect()->route('divisions.index')->with('success', 'Add Success');
     }
 
     /**
@@ -82,7 +82,7 @@ class DivisionController extends Controller
             'name'         => $request->name,
         ]);
 
-        return redirect()->route('divisions.index');
+        return redirect()->route('divisions.index')->with('success', 'Edit Success');
     }
 
     /**
@@ -94,6 +94,6 @@ class DivisionController extends Controller
 
         $data->delete();
 
-        return redirect()->route('divisions.index');
+        return redirect()->route('divisions.index')->with('success', 'Delete Success');;
     }
 }

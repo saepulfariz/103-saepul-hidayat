@@ -52,7 +52,7 @@ class MemberController extends Controller
             'coordinator'         => $request->coordinator,
         ]);
 
-        return redirect()->route('members.index');
+        return redirect()->route('members.index')->with('success', 'Add Success');
     }
 
     /**
@@ -98,7 +98,7 @@ class MemberController extends Controller
             'coordinator'         => $request->coordinator,
         ]);
 
-        return redirect()->route('members.index');
+        return redirect()->route('members.index')->with('success', 'Edit Success');
     }
 
     /**
@@ -110,6 +110,6 @@ class MemberController extends Controller
 
         $data->delete();
 
-        return redirect()->route('members.index');
+        return redirect()->route('members.index')->with('success', 'Delete Success');;
     }
 }

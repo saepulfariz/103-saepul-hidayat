@@ -75,19 +75,17 @@
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash"></i></button>
+                                                <button type="button" onclick='deleteTombol(this)'
+                                                    class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
-                                    @empty
-                                        <h1>DATA EMPTY</h1>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

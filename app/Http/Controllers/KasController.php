@@ -69,7 +69,7 @@ class KasController extends Controller
             'user_id'         => session()->get('userId'),
         ]);
 
-        return redirect()->route('kas.show', $id);
+        return redirect()->route('kas.show', $id)->with('success', 'Add Success');
     }
 
     /**

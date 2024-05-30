@@ -57,7 +57,7 @@ class AttendanceController extends Controller
             'note'         => $request->note,
         ]);
 
-        return redirect()->route('attendances.index', $id);
+        return redirect()->route('attendances.index', $id)->with('success', 'Add Success');
     }
 
     /**
@@ -104,7 +104,7 @@ class AttendanceController extends Controller
             'note'         => $request->note,
         ]);
 
-        return redirect()->route('attendances.index', $meeting['id']);
+        return redirect()->route('attendances.index', $meeting['id'])->with('success', 'Edit Success');
     }
 
     /**
@@ -117,6 +117,6 @@ class AttendanceController extends Controller
 
         $data->delete();
 
-        return redirect()->route('attendances.index', $meeting['id']);
+        return redirect()->route('attendances.index', $meeting['id'])->with('success', 'Delete Success');
     }
 }

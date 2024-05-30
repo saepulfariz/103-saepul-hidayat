@@ -66,7 +66,7 @@ class ExpenseController extends Controller
             'user_id'         => session()->get('userId'),
         ]);
 
-        return redirect()->route('expenses.index');
+        return redirect()->route('expenses.index')->with('success', 'Add Success');
     }
 
     /**

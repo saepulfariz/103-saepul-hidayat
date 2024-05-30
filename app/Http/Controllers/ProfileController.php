@@ -60,7 +60,7 @@ class ProfileController extends Controller
             'image'         => $imageName,
         ]);
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index')->with('success', 'Update Success');
     }
 
     public function update_password(Request $request)
@@ -73,9 +73,9 @@ class ProfileController extends Controller
         ];
 
         if (!Hash::check($request->password_old, $user->password)) {
-            echo "<script>alert('Password Current Salah');window.location.href = '" . url('profile') . "'</script>";
-            exit;
-            // return redirect()->route('profile.index');
+            // echo "<script>alert('Password Current Salah');window.location.href = '" . url('profile') . "'</script>";
+            // exit;
+            return redirect()->route('profile.index')->with('error', 'Password Current Salah');
         }
 
         $request->validate($rules);
@@ -84,6 +84,6 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index')->with('success', 'Update Success');
     }
 }
