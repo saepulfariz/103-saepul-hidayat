@@ -21,6 +21,8 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No
+                                    </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -37,8 +39,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $a = 1;
+                                @endphp
                                 @foreach ($users as $d)
                                     <tr>
+                                        <td><span
+                                                class="text-secondary text-xs font-weight-bold text-center px-3 py-1">{{ $a++ }}</span>
+                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
@@ -76,8 +84,8 @@
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash"></i></button>
+                                                <button type="button" onclick='deleteTombol(this)'
+                                                    class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

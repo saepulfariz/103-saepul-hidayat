@@ -18,6 +18,8 @@
 
 <script src="{{ asset('assets/plugins/Buttons-3.0.2/js/buttons.bootstrap5.js') }}"></script>
 
+<script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
 
 @yield('script')
 
@@ -50,6 +52,48 @@
             [5, 100, 1000, "ALL"],
         ],
     })
+
+    //message with sweetalert
+    @if (session('success'))
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @elseif (session('error'))
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "{{ session('error') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @endif
+
+    function deleteTombol(e) {
+        const ket = e.getAttribute('data-ket');
+        const href = e.getAttribute('data-href') ? e.getAttribute('data-href') : e.getAttribute('href');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: ket,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                if (href) {
+                    window.location.href = href;
+                } else {
+                    e.parentElement.submit();
+                }
+            }
+        })
+        e.preventDefault();
+    }
 </script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>

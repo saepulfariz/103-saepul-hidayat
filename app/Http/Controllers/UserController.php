@@ -73,7 +73,7 @@ class UserController extends Controller
         $user->address = $payload['address'];
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Add Success');
     }
 
     /**
@@ -163,7 +163,7 @@ class UserController extends Controller
         $user->address = $payload['address'];
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Edit Success');
     }
 
     /**
@@ -178,7 +178,7 @@ class UserController extends Controller
         }
 
         User::destroy($id);
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Delete Success');
     }
 
     public function active($id)
@@ -194,7 +194,7 @@ class UserController extends Controller
         $data->update([
             'is_active' => $update_active
         ]);
-
-        return redirect()->route('users.index');
+        $status = ($update_active == 1) ? 'Active' : 'Non Active';
+        return redirect()->route('users.index')->with('success',  $status . ' Success');
     }
 }
